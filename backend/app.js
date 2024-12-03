@@ -4,6 +4,8 @@ const verifyToken = require("./middlewares/verifyToken");
 
 const eventsController = require("./controllers/event.controller"); 
 const clubsController = require("./controllers/club.controller");
+const messagesController = require("./controllers/message.controller");
+
 
 const app = express();
 
@@ -35,5 +37,11 @@ app.get("/get-pending-events/:email", verifyToken, eventsController.getPendingEv
 app.get("/get-club-list", clubsController.getClubList);
 
 // Club Routes Ends -- Yeamin
+
+// Message Routes Starts -- Niloy
+app.get("/get-messages/:clubMail", verifyToken, messagesController.getMessages);
+app.post("/send-message", verifyToken, messagesController.sendMessage);
+// Message Routes Ends -- Niloy
+
 
 module.exports = app;
