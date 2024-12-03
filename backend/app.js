@@ -25,23 +25,20 @@ app.get('/health', (req, res) => {
   res.status(200).send('Ok');
 });
 
-// Event Routes Starts -- Hanif
 
+// Event Routes
 app.post("/new-event", verifyToken, eventsController.createEvent); 
-app.get("/get-pending-events/:email", verifyToken, eventsController.getPendingEvents);
+app.get("/pending-events/:email", verifyToken, eventsController.getPendingEvents);
 
-// Event Routes Ends -- Hanif
+// Club Routes
+app.get("/club-list", clubsController.getClubList);
 
-// Club Routes Starts -- Yeamin
-
-app.get("/get-club-list", clubsController.getClubList);
-
-// Club Routes Ends -- Yeamin
-
-// Message Routes Starts -- Niloy
-app.get("/get-messages/:clubMail", verifyToken, messagesController.getMessages);
+// Message Routes
+app.get("/messages/:clubMail", verifyToken, messagesController.getMessages);
 app.post("/send-message", verifyToken, messagesController.sendMessage);
-// Message Routes Ends -- Niloy
 
+// Dashboard Routes
+app.get("/dashboard-info/:email", verifyToken, dashboardController.getDashboardInfo);
+app.get("/dashboard-events", verifyToken, dashboardController.getUpcomingEvents);
 
 module.exports = app;
