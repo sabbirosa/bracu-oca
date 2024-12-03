@@ -1,4 +1,5 @@
-const eventsController = require("./controllers/event.controller"); 
-app.post("/new-event", verifyToken, eventsController.createEvent);
+const client = require("../config/dbConfig");
 
-app.get("/get-pending-events/:email", verifyToken, eventsController.getPendingEvents);
+const eventsCollection = client.db("BRACU_OCA").collection("events");
+
+module.exports = eventsCollection;

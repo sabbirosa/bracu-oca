@@ -15,16 +15,25 @@ app.use(
 );
 app.use(express.json());
 
-// Event Routes -- Hanif
+app.get("/", (req, res) => {
+  res.send("Welcome to BRACU OCA Backend");
+});
+
+app.get('/health', (req, res) => {
+  res.status(200).send('Ok');
+});
+
+// Event Routes Starts -- Hanif
+
 app.post("/new-event", verifyToken, eventsController.createEvent); 
 app.get("/get-pending-events/:email", verifyToken, eventsController.getPendingEvents);
-// Event Routes end -- Hanif
 
-//Club Route -- Yeamin
+// Event Routes Ends -- Hanif
+
+// Club Routes Starts -- Yeamin
 
 app.get("/get-club-list", clubsController.getClubList);
 
-
-//Club Route -- Yeamin
+// Club Routes Ends -- Yeamin
 
 module.exports = app;
