@@ -29,6 +29,15 @@ app.get('/health', (req, res) => {
 
 app.post("/new-event", verifyToken, eventsController.createEvent); 
 app.get("/get-pending-events/:email", verifyToken, eventsController.getPendingEvents);
+app.post("/new-event", verifyToken, eventsController.createEvent);
+app.get("/pending-events/:email", verifyToken, eventsController.getPendingEvents);
+app.get("/all-pending-events", verifyToken, eventsController.getAllPendingEvents);
+app.get("/responded-events/:email", verifyToken, eventsController.getRespondedEvents);
+app.get("/accepted-events", verifyToken, eventsController.getAcceptedEvents);
+app.get("/events/:id", verifyToken, eventsController.getEventById);
+app.put("/events/:id", verifyToken, eventsController.updateEvent);
+app.delete("/event-planner/:eventId", verifyToken, eventsController.deleteEvent);
+app.get("/total-budget", verifyToken, eventsController.getTotalBudget);
 
 // Event Routes Ends -- Hanif
 
