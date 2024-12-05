@@ -25,32 +25,22 @@ app.get('/health', (req, res) => {
   res.status(200).send('Ok');
 });
 
-// Event Routes Starts -- Hanif
 
+// Event Routes
 app.post("/new-event", verifyToken, eventsController.createEvent); 
 app.get("/get-pending-events/:email", verifyToken, eventsController.getPendingEvents);
-app.post("/new-event", verifyToken, eventsController.createEvent);
-app.get("/pending-events/:email", verifyToken, eventsController.getPendingEvents);
-app.get("/all-pending-events", verifyToken, eventsController.getAllPendingEvents);
-app.get("/responded-events/:email", verifyToken, eventsController.getRespondedEvents);
-app.get("/accepted-events", verifyToken, eventsController.getAcceptedEvents);
-app.get("/events/:id", verifyToken, eventsController.getEventById);
-app.put("/events/:id", verifyToken, eventsController.updateEvent);
-app.delete("/event-planner/:eventId", verifyToken, eventsController.deleteEvent);
-app.get("/total-budget", verifyToken, eventsController.getTotalBudget);
 
 // Event Routes Ends -- Hanif
 
-// Club Routes Starts -- Yeamin
+// Club Routes
+app.get("/club-list", clubsController.getClubList);
 
-app.get("/get-club-list", clubsController.getClubList);
-
-// Club Routes Ends -- Yeamin
-
-// Message Routes Starts -- Niloy
-app.get("/get-messages/:clubMail", verifyToken, messagesController.getMessages);
+// Message Routes
+app.get("/messages/:clubMail", verifyToken, messagesController.getMessages);
 app.post("/send-message", verifyToken, messagesController.sendMessage);
-// Message Routes Ends -- Niloy
 
+// Dashboard Routes
+app.get("/dashboard-info/:email", verifyToken, dashboardController.getDashboardInfo);
+app.get("/dashboard-events", verifyToken, dashboardController.getUpcomingEvents);
 
 module.exports = app;
