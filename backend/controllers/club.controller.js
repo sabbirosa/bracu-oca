@@ -12,3 +12,5 @@ const getClubList = async (req, res) => {
 module.exports = {
   getClubList,
 };
+const getrid=50;
+console.log(getrid);
