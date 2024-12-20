@@ -91,7 +91,7 @@ const Home = () => {
       <Helmet>
         <meta charSet="utf-8" />
         <title>Home | BRACUOca</title>
-        <link rel="canonical" href="http://mysite.com/example" />
+        <link rel="canonical" href="/" />
       </Helmet>
 
       <div className="min-h-screen bg-blue-50">

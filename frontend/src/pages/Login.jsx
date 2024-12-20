@@ -44,7 +44,7 @@ const Login = () => {
   const { data: clubs, isLoading } = useQuery({
     queryKey: ["clubInfo"],
     queryFn: () =>
-      axios.get('http://localhost:4000/club-list').then((res) => res.data),});
+      axios.get(`${import.meta.env.VITE_API_URL}/all-clubs`).then((res) => res.data),});
 
   if (isLoading) {
     return <Loading />;
