@@ -42,9 +42,9 @@ export const router = createBrowserRouter([
       {
         path: '/dashboard/event-planner',
         element: <PrivateRoute><EventPlanner/></PrivateRoute>
-      }
-      ,
-      // Club dashboard
+      },
+
+      // Club Dashboard Routes
       {
         path: '/dashboard/chat',
         element: <PrivateRoute><Chat/></PrivateRoute>
@@ -53,7 +53,8 @@ export const router = createBrowserRouter([
         path: '/dashboard/club-analytics',
         element: <PrivateRoute><ClubAnalytics/></PrivateRoute>
       },
-      // OCA dashboard
+
+      // OCA Dashboard Routes
       {
         path: '/dashboard/approval',
         element: <PrivateRoute><Approval/></PrivateRoute>
@@ -66,7 +67,8 @@ export const router = createBrowserRouter([
         path: "/dashboard/club-info/:id",
         element: <PrivateRoute><ClubDetails/></PrivateRoute>,
       },
-      // chat routes
+
+      // Chat Routes
       {
         path: '/dashboard/oca-chat',
         element: <PrivateRoute><OCAChat/></PrivateRoute>,
@@ -80,7 +82,8 @@ export const router = createBrowserRouter([
         }
       ]
       },
-      // shared
+
+      // Shared Routes
       {
         path: '/dashboard/calendar',
         element: <PrivateRoute><Calendar/></PrivateRoute>
