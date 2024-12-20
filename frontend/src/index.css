@@ -1,68 +1,92 @@
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+.fc-toolbar-title {
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-size: 36px;
+  color: #303972;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
+.fc-button {
+  background-color: #4d44b5 !important;
 }
-a:hover {
-  color: #535bf2;
-}
-
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+.fc-day-today {
+  /* border: 2px solid #4d44b5 !important; */
+  border-radius: 10px;
+  background-color: #fb7d5b !important;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+.fc-daygrid-day-frame {
+  background-color: #303972 !important;
+  /* padding: 10px; */
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+.fc-daygrid-day-frame,
+.fc-col-header-cell {
+  border: none !important;
+  box-shadow: none !important;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+.fc-scrollgrid-sync-inner {
+  background-color: white !important;
+  border: 0px solid #303972;
+  border-radius: 10px !important;
+  /* margin: 10px !important; */
+}
+
+.fc-event-title-container {
+  background-color: rgb(77, 68, 181) !important;
+}
+thead {
+  font-size: 14px;
+  font-weight: 600px;
+  color: #a098ae;
+  border-collapse: collapse !important;
+  border: 0px !important;
+  border-spacing: 0px !important;
+  border: none !important;
+}
+
+table {
+  border-collapse: collapse !important;
+}
+.fc-daygrid-day-frame,
+.fc-col-header-cell {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.fc-scrollgrid-sync-inner {
+  background-color: white !important;
+  border: 0px solid #303972;
+  border-radius: 10px !important;
+  /* margin: 10px !important; */
+}
+
+.fc-event-title-container {
+  background-color: rgb(77, 68, 181) !important;
+}
+
+td {
+  border: none !important;
+}
+table {
+  border-spacing: 0px !important;
+  border: none !important;
+}
+th {
+  border: 0;
+  border-collapse: collapse;
+}
+.fc-today-button {
+  background: #4d44b5 !important;
+  border: 0 !important;
+}
+.fc-daygrid-day-frame {
+  /* border: 1px solid #303972 !important; */
+  margin: 10px;
+  /* tee */
 }

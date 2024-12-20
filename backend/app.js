@@ -5,6 +5,7 @@ const verifyToken = require("./middlewares/verifyToken");
 const eventsController = require("./controllers/event.controller"); 
 const clubsController = require("./controllers/club.controller");
 const messagesController = require("./controllers/message.controller");
+const dashboardController = require("./controllers/dashboard.controller");
 
 
 const app = express();
@@ -36,8 +37,6 @@ app.get("/events/:id", verifyToken, eventsController.getEventById);
 app.put("/events/:id", verifyToken, eventsController.updateEvent);
 app.delete("/event-planner/:eventId", verifyToken, eventsController.deleteEvent);
 app.get("/total-budget", verifyToken, eventsController.getTotalBudget);
-
-// Event Routes Ends
 
 // Club Routes
 app.get("/club-list", clubsController.getClubList);

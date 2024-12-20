@@ -1,16 +1,16 @@
 import {
-    createUserWithEmailAndPassword,
-    GoogleAuthProvider,
-    onAuthStateChanged,
-    signInWithEmailAndPassword,
-    signInWithPopup,
-    signOut,
-    updateProfile,
+  createUserWithEmailAndPassword,
+  GoogleAuthProvider,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  signOut,
+  updateProfile,
 } from "firebase/auth";
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import auth from "../Firebase/Firebase.config";
-import AuthContext from "./AuthContext";
+import AuthContext from "../context/AuthContext";
 
 const AuthProvider = ({ children }) => {
   const googleProvider = new GoogleAuthProvider();
