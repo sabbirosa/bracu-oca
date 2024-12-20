@@ -46,6 +46,29 @@ const features = [
   },
 ];
 
+const socialMedia = [
+  {
+    name: "Facebook",
+    icon: FaFacebookF,
+    link: "https://facebook.com",
+  },
+  {
+    name: "Twitter",
+    icon: FaTwitter,
+    link: "https://twitter.com",
+  },
+  {
+    name: "Instagram",
+    icon: FaInstagram,
+    link: "https://instagram.com",
+  },
+  {
+    name: "LinkedIn",
+    icon: FaLinkedinIn,
+    link: "https://linkedin.com",
+  },
+]
+
 const FeatureCard = ({ icon: Icon, title, description }) => (
   <div className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-all">
     <div className="h-12 w-12 rounded-lg bg-blue-100 flex items-center justify-center mb-4">
@@ -184,26 +207,15 @@ const Home = () => {
               <div>
               <h4 className="font-semibold mb-4">Follow Us</h4>
               <div className="flex gap-4">
-                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-                  <i className="text-white hover:text-white/50 transition-all">
-                    <FaFacebookF size={20} />
-                  </i>
-                </a>
-                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
-                  <i className="text-white hover:text-white/50 transition-all">
-                    <FaTwitter size={20} />
-                  </i>
-                </a>
-                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-                  <i className="text-white hover:text-white/500 transition-all">
-                    <FaInstagram size={20} />
-                  </i>
-                </a>
-                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-                  <i className="text-white hover:text-white/50 transition-all">
-                    <FaLinkedinIn size={20} />
-                  </i>
-                </a>
+                {socialMedia.map((social, index) => (
+                  <a
+                    key={index}
+                    href={social.link}
+                    className="text-white hover:text-yellow-400 transition-colors"
+                  >
+                    <social.icon className="h-6 w-6" />
+                  </a>
+                ))}
               </div>
             </div>
             </div>
