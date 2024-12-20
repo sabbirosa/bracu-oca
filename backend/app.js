@@ -40,6 +40,7 @@ app.get("/total-budget", verifyToken, eventsController.getTotalBudget);
 
 // Club Routes
 app.get("/club-list", clubsController.getClubList);
+app.get("/all-clubs", clubsController.getAllClubs);
 
 // Message Routes
 app.get("/messages/:clubMail", verifyToken, messagesController.getMessages);

@@ -6,6 +6,11 @@ const getClubList = async () => {
     .toArray();
 };
 
+const getAllClubs = async () => {
+  return await clubCollection.find({}).toArray();
+};
+
 module.exports = {
   getClubList,
+  getAllClubs,
 };
