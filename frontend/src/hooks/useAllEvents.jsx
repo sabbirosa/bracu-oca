@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
-const useAllClubs = () => {
+const useALlEvents = () => {
     const {data : allEvents = [], refetch: allEventsRefetch} = useQuery({
         queryKey: ['allEvents'],
         queryFn: async () => {
@@ -14,4 +14,4 @@ const useAllClubs = () => {
     return [allEvents, allEventsRefetch]
 };
 
-export default useAllClubs;
+export default useALlEvents;

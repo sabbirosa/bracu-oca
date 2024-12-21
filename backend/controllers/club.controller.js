@@ -9,8 +9,16 @@ const getClubList = async (req, res) => {
   }
 };
 
+const getAllClubs = async (req, res) => {
+  try {
+    const clubs = await clubService.getAllClubs();
+    res.send(clubs);
+  } catch (error) {
+    res.status(500).send("Error fetching club list");
+  }
+}
+
 module.exports = {
   getClubList,
+  getAllClubs,
 };
-const getrid=50;
-console.log(getrid);

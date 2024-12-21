@@ -22,7 +22,7 @@ const Login = () => {
       .then(async () => {
         navigate("/dashboard");
         Swal.fire({
-          position: "top-end",
+          position: "center",
           icon: "success",
           title: "Logged In",
           showConfirmButton: false,
