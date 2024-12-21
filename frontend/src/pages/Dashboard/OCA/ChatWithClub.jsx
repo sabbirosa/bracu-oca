@@ -1,4 +1,4 @@
-export default function ChatWithClub() {
+export default function Calendar() {
   return (
     <div>ChatWithClub</div>
   )
