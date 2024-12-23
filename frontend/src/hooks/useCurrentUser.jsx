@@ -3,7 +3,7 @@ import axios from "axios";
 import { useContext } from "react";
 import AuthContext from "../context/AuthContext";
 
-const useCurrUser = () => {
+const useCurrentUser = () => {
     const {user} = useContext(AuthContext)
 
     const mail = user?.email;
@@ -20,4 +20,4 @@ const useCurrUser = () => {
     return [currUser, currUserRefetch]
 };
 
-export default useCurrUser;
+export default useCurrentUser;
