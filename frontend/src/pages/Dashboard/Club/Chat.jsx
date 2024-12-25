@@ -1,17 +1,16 @@
 import axios from "axios";
-import React, { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { BiSend } from "react-icons/bi";
 import { FaVideo } from "react-icons/fa";
-import { MdNotificationsActive } from "react-icons/md";
-import { AuthContext } from "../../../Context/AuthProvider";
-import useCurrUser from "../../../hooks/useCurrUser";
+import AuthContext from "../../../context/AuthContext";
+import useCurrentUser from "../../../hooks/useCurrentUser";
 
 const Chat = () => {
   const { user } = useContext(AuthContext);
   const [messages, setMessage] = useState([]);
   const [text, setText] = useState('');
   const chatContainerRef = useRef(null);
-  const [currUser] = useCurrUser();
+  const [currUser] = useCurrentUser();
 
   const username = user?.email.split("@")[0];
   const uppercaseUsername = username.toUpperCase();
@@ -25,7 +24,7 @@ const Chat = () => {
       time: new Date().toLocaleTimeString("en-US", { hour12: true })
     };
     
-    axios.post("https://clubsyncserver.vercel.app/send-message", messageInfo).then((res) => {
+    axios.post(`${import.meta.env.VITE_API_URL}/send-message`, messageInfo).then((res) => {
       setMessage((prevMessages) => [...prevMessages, messageInfo]);
       setText('');
     });
@@ -33,7 +32,7 @@ const Chat = () => {
 
   useEffect(() => {
     
-    axios.get(`https://clubsyncserver.vercel.app/get-messages/${user?.email}`)
+    axios.get(`${import.meta.env.VITE_API_URL}/messages/${user?.email}`)
       .then((res) => {
         setMessage(res.data);
         

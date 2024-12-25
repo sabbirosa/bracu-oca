@@ -1,13 +1,12 @@
-import { useParams } from "react-router-dom";
-import useAllClubs from "../../../hooks/useAllClubs";
-import { MdEdit, MdEmail, MdPeople } from "react-icons/md";
-import { BiArrowBack } from "react-icons/bi";
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-import useCurrUser from "../../../hooks/useCurrUser";
-import { useForm, useFieldArray } from 'react-hook-form';
-import Swal from "sweetalert2";
 import axios from "axios";
+import { useState } from "react";
+import { useFieldArray, useForm } from 'react-hook-form';
+import { BiArrowBack } from "react-icons/bi";
+import { MdEdit, MdEmail, MdPeople } from "react-icons/md";
+import { useNavigate, useParams } from "react-router-dom";
+import Swal from "sweetalert2";
+import useAllClubs from "../../../hooks/useAllClubs";
+import useCurrentUser from "../../../hooks/useCurrentUser";
 
 const PersonCard = ({ person, type }) => {
   return (
@@ -66,7 +65,7 @@ const ClubDetails = () => {
   const [allClubs, allClubsRefetch] = useAllClubs();
   const navigate = useNavigate();
   const club = allClubs.find((c) => c._id === id);
-  const [currUser] = useCurrUser();
+  const [currUser] = useCurrentUser();
 
   const editAccess = club?.email === currUser?.email;
 
@@ -121,7 +120,7 @@ const ClubDetails = () => {
   const onSubmit = async (data) => {
     try {
       console.log(data);
-      await axios.patch(`https://clubsyncserver.vercel.app/clubs-update/${club._id}`, data);
+      await axios.patch(`${import.meta.env.VITE_API_URL}/clubs-update/${club._id}`, data);
       setIsModalOpen(false);
       allClubsRefetch();
       // Handle successful update

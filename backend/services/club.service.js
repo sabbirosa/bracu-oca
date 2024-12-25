@@ -10,7 +10,27 @@ const getAllClubs = async () => {
   return await clubCollection.find({}).toArray();
 };
 
+const updateClub = async (id, data) => {
+  return await clubCollection.updateOne(
+    { _id: id },
+    {
+      $set: {
+        name: data.name,
+        email: data.email,
+        description: data.description,
+        photo_url: data.photo_url,
+      },
+    }
+  );
+}
+
+const getCurrentUser = async (email) => {
+  return await clubCollection.findOne({ email: email });
+};
+
 module.exports = {
   getClubList,
   getAllClubs,
+  updateClub,
+  getCurrentUser,
 };

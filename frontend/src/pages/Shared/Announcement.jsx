@@ -1,10 +1,10 @@
-import { useState, useEffect, useContext } from "react";
-import { MdAdd, MdDelete, MdClose } from "react-icons/md";
+import axios from "axios";
+import { useContext, useEffect, useState } from "react";
 import { BiTime } from "react-icons/bi";
 import { BsPerson } from "react-icons/bs";
-import axios from "axios";
+import { MdAdd, MdClose, MdDelete } from "react-icons/md";
 import Swal from "sweetalert2";
-import { AuthContext } from "../../Context/AuthProvider";
+import AuthContext from "../../context/AuthContext";
 import useCurrentUser from "../../hooks/useCurrentUser";
 
 // Helper function to format dates

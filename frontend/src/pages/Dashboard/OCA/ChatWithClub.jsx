@@ -24,7 +24,7 @@ const ChatWithClub = () => {
       time: new Date().toLocaleTimeString("en-US", { hour12: true }),
     };
     axios
-      .post("https://clubsyncserver.vercel.app/send-message", messageInfo)
+      .post(`${import.meta.env.VITE_API_URL}/send-message`, messageInfo)
       .then((res) => {
         setMessage([...messages, messageInfo]);
         setText("");
@@ -43,7 +43,7 @@ const ChatWithClub = () => {
     queryKey: ["clubInfo"],
     queryFn: async () => {
       const response = await axios.get(
-        "https://clubsyncserver.vercel.app/get-club-list"
+        `${import.meta.env.VITE_API_URL}/club-list`
       );
       return response.data;
     },
@@ -54,7 +54,7 @@ const ChatWithClub = () => {
   useEffect(() => {
     
     axios
-      .get(`https://clubsyncserver.vercel.app/get-messages/${email}`)
+      .get(`${import.meta.env.VITE_API_URL}/messages/${email}`)
       .then((res) => {
         setMessage(res.data);
       });

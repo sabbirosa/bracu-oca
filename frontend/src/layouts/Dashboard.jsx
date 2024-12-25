@@ -6,7 +6,7 @@ import { FaCalendar, FaHome } from "react-icons/fa";
 import { MdAnalytics, MdChat, MdEvent } from "react-icons/md";
 import { NavLink, Outlet } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
-import useCurrUser from "../hooks/useCurrUser";
+import useCurrentUser from "../hooks/useCurrentUser";
 
 const Dashboard = () => {
   const { user, logOut } = useContext(AuthContext);
@@ -15,7 +15,7 @@ const Dashboard = () => {
   const username = email.split("@")[0];
   const uppercaseUsername = username.toUpperCase();
 
-  const [currUser] = useCurrUser();
+  const [currUser] = useCurrentUser();
 
   const navItems = {
     oca: [

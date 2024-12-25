@@ -8,8 +8,8 @@ const useCurrentUser = () => {
 
     const mail = user?.email;
 
-    const {data : currUser = {}, refetch: currUserRefetch} = useQuery({
-        queryKey: ['currUser', user?.email],
+    const {data : currentUser = {}, refetch: currentUserRefetch} = useQuery({
+        queryKey: ['currentUser', user?.email],
         queryFn: async () => {
             const res = await axios.get(`${import.meta.env.VITE_API_URL}/current-user/${mail}`);
             return res.data
@@ -17,7 +17,7 @@ const useCurrentUser = () => {
     }
     )
 
-    return [currUser, currUserRefetch]
+    return [currentUser, currentUserRefetch]
 };
 
 export default useCurrentUser;

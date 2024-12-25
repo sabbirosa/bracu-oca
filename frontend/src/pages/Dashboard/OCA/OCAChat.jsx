@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 
 
@@ -7,7 +7,7 @@ const OcaChat = () => {
   const [club, setClubs] = useState([]);
   useEffect(() => {
     axios
-      .get("https://clubsyncserver.vercel.app/get-club-list")
+      .get(`${import.meta.env.VITE_API_URL}/club-list`)
       .then((response) => setClubs(response.data));
   }, []);
   const clubsOnly = club?.filter((user) => user.name !== "OCA");

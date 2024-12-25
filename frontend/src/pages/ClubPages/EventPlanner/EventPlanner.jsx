@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { BiMoney } from "react-icons/bi";
 import { BsBuilding } from "react-icons/bs";
@@ -12,8 +12,8 @@ import {
   MdTitle
 } from "react-icons/md";
 import Swal from "sweetalert2";
-import { AuthContext } from "../../../Context/AuthProvider";
-import useCurrUser from "../../../hooks/useCurrUser";
+import AuthContext from "../../../context/AuthContext";
+import useCurrentUser from "../../../hooks/useCurrentUser";
 import usePendingRequests from "../../../hooks/usePendingRequests";
 import useRespondedRequests from "../../../hooks/useRespondedRequests";
 
@@ -42,7 +42,7 @@ const EventPlanner = () => {
     formState: { errors },
   } = useForm();
 
-  const [currUser] = useCurrUser();
+  const [currUser] = useCurrentUser();
 
   const { user } = useContext(AuthContext);
   // const [clubInfo, setClubInfo] = useState([]);
@@ -59,7 +59,7 @@ const EventPlanner = () => {
 
   const mutation = useMutation({
     mutationFn: (data) => {
-      return axios.post("https://clubsyncserver.vercel.app/new-event", data);
+      return axios.post(`${import.meta.env.VITE_API_URL}/new-event`, data);
     },
     onSuccess: () => {
       Swal.fire({
@@ -110,7 +110,7 @@ const onSubmit = async (data) => {
     // Check room availability if room is selected
     if (room) {
       try {
-        const response = await axios.post(`https://clubsyncserver.vercel.app/check-room-availability`, {
+        const response = await axios.post(`${import.meta.env.VITE_API_URL}/check-room-availability`, {
           date,
           roomNumber: room
         });
@@ -170,7 +170,7 @@ const onSubmit = async (data) => {
     queryKey: ["clubInfo", user?.email],
     queryFn: () =>
       axios
-        .get(`https://clubsyncserver.vercel.app/dashboard-info/${user?.email}`)
+        .get(`${import.meta.env.VITE_API_URL}/dashboard-info/${user?.email}`)
         .then((res) => res.data),
     enabled: !!user?.email,
   });
@@ -711,7 +711,7 @@ const ProposalCard = ({ event, pendingRequestsRefetch, borderColor }) => {
       .then((result) => {
         if (result.isConfirmed) {
           axios
-            .delete(`https://clubsyncserver.vercel.app/event-planner/${eventId}`)
+            .delete(`${import.meta.env.VITE_API_URL}/event-planner/${eventId}`)
             .then(() => {
               Swal.fire("Deleted!", "Your file has been deleted.", "success");
               pendingRequestsRefetch();

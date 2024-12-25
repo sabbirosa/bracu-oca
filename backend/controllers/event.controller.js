@@ -107,6 +107,26 @@ const getTotalBudget = async (req, res) => {
   }
 };
 
+const checkRoomAvailability = async (req, res) => {
+  try {
+    const { date, roomNumber } = req.body;
+    const isAvailable = await eventService.checkRoomAvailability(date, roomNumber);
+    res.status(200).json({ available: isAvailable });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+const getAllEvents = async (req, res) => {
+  try {
+    const events = await eventService.getAllEvents();
+    res.status(200).json(events);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+
 module.exports = {
   createEvent,
   getPendingEvents,
@@ -117,4 +137,6 @@ module.exports = {
   updateEvent,
   deleteEvent,
   getTotalBudget,
+  checkRoomAvailability,
+  getAllEvents
 };

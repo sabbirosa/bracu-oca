@@ -1,13 +1,12 @@
 import axios from "axios";
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CiCalendarDate } from "react-icons/ci";
-import { MdNotificationsActive } from "react-icons/md";
-import { AuthContext } from "../../../Context/AuthProvider";
-import useCurrUser from "../../../hooks/useCurrUser";
+import AuthContext from "../../../context/AuthContext";
+import useCurrentUser from "../../../hooks/useCurrentUser";
 
 const ClubAnalytics = () => {
   const { user } = useContext(AuthContext);
-  const [currUser] = useCurrUser();
+  const [currUser] = useCurrentUser();
   const [clubInfo, setClubInfo] = useState([]);
   const [events, setEvents] = useState([]);
   const [singleEvent, setSingleEvent] = useState([]);
@@ -19,14 +18,14 @@ const ClubAnalytics = () => {
 
   useEffect(() => {
     axios
-      .get(`https://clubsyncserver.vercel.app/get-responded-events/${user?.email}`)
+      .get(`${import.meta.env.VITE_API_URL}/responded-events/${user?.email}`)
       .then((response) => {
         setEvents(response.data);
       })
       .catch((error) => {
         console.log(error);
       });
-    axios.get(`https://clubsyncserver.vercel.app/dashboard-info/${user?.email}`)
+    axios.get(`${import.meta.env.VITE_API_URL}/dashboard-info/${user?.email}`)
      .then((response) => {
         setClubInfo(response.data);
       })
