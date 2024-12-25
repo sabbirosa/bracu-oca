@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import {
   Bar,
@@ -14,9 +14,9 @@ import {
   YAxis,
 } from "recharts";
 import { AuthContext } from "../../Context/AuthProvider";
-import useAllClubs from "../../hooks/useAllClubs";
-import useAllEvents from "../../hooks/useAllEvents";
-import useCurrentUser from "../../hooks/useCurrentUser";
+import useAllClubs from "../../Hooks/useAllClubs";
+import useAllEvents from "../../Hooks/useAllEvents";
+import useCurrentUser from "../../Hooks/useCurrentUser";
 import Announcements from "../Shared/Announcement";
 
 const DashboardHome = () => {
@@ -58,7 +58,7 @@ const DashboardHome = () => {
         setUpcomingEvents(sortedEvents);
       })
       .catch((err) => console.error("Error fetching events:", err));
-  }, []);
+  }, [ user?.email]);
 
   // Analytics processing
   useEffect(() => {

@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import { Helmet } from "react-helmet";
 import { BiTime } from "react-icons/bi";
 import { BsBuilding, BsCalendarEvent, BsPeople } from "react-icons/bs";
@@ -78,12 +77,6 @@ const FeatureCard = ({ icon: Icon, title, description }) => (
     <p className="text-gray-600 text-sm">{description}</p>
   </div>
 );
-
-FeatureCard.propTypes = {
-  icon: PropTypes.elementType.isRequired,
-  title: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
-};
 
 const Home = () => {
   return (

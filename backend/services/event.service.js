@@ -57,6 +57,11 @@ const getTotalBudget = async () => {
   return result[0]?.total || 0; 
 };
 
+const checkRoomAvailability = async (date, roomNumber) => {
+  const result = await eventsCollection.findOne({ date, roomNumber });
+  return result === null;
+}
+
 module.exports = {
   createEvent,
   getPendingEvents,
@@ -67,4 +72,5 @@ module.exports = {
   updateEvent,
   deleteEvent,
   getTotalBudget,
+  checkRoomAvailability,
 };

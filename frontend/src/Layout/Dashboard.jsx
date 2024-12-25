@@ -5,8 +5,8 @@ import { CgEventbrite, CgLogOut } from "react-icons/cg";
 import { FaCalendar, FaHome } from "react-icons/fa";
 import { MdAnalytics, MdChat, MdEvent } from "react-icons/md";
 import { NavLink, Outlet } from "react-router-dom";
-import AuthContext from "../context/AuthContext";
-import useCurrentUser from "../hooks/useCurrentUser";
+import { AuthContext } from "../Context/AuthProvider";
+import useCurrentUser from "../Hooks/useCurrentUser";
 
 const Dashboard = () => {
   const { user, logOut } = useContext(AuthContext);

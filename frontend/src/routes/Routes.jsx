@@ -1,18 +1,18 @@
 import { createBrowserRouter } from "react-router-dom";
-import Dashboard from "../layouts/Dashboard";
-import Root from "../layouts/Root";
-import EventPlanner from "../pages/ClubPages/EventPlanner/EventPlanner";
-import Chat from "../pages/Dashboard/Club/Chat";
-import ClubAnalytics from "../pages/Dashboard/Club/ClubAnalytics";
-import ClubDetails from "../pages/Dashboard/Club/ClubDetails";
-import DashboardHome from "../pages/Dashboard/DashboardHome";
-import Approval from "../pages/Dashboard/OCA/Approval";
-import ChatWithClub from "../pages/Dashboard/OCA/ChatWithClub";
-import ClubInfo from "../pages/Dashboard/OCA/ClubInfo";
-import OCAChat from "../pages/Dashboard/OCA/OcaChat";
-import Home from "../pages/Home";
-import Login from "../pages/Login";
-import Calendar from "../pages/Shared/Calendar";
+import Dashboard from "../Layout/Dashboard";
+import Root from "../Layout/Root";
+import EventPlanner from "../Pages/ClubPages/EventPlanner/EventPlanner";
+import Chat from "../Pages/Dashboard/Club/Chat";
+import ClubAnalytics from "../Pages/Dashboard/Club/ClubAnalytics";
+import ClubDetails from "../Pages/Dashboard/Club/ClubDetails";
+import DashboardHome from "../Pages/Dashboard/DashboardHome";
+import Approval from "../Pages/Dashboard/OCA/Approval";
+import ChatWithClub from "../Pages/Dashboard/OCA/ChatWithClub";
+import ClubInfo from "../Pages/Dashboard/OCA/ClubInfo";
+import OCAChat from "../Pages/Dashboard/OCA/OcaChat";
+import Home from "../Pages/Home";
+import Login from "../Pages/Login";
+import Calendar from "../Pages/Shared/Calendar";
 import PrivateRoute from "./PrivateRoute";
 
 export const router = createBrowserRouter([

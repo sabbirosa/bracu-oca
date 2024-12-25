@@ -5,8 +5,8 @@ import { BiArrowBack } from "react-icons/bi";
 import { MdEdit, MdEmail, MdPeople } from "react-icons/md";
 import { useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
-import useAllClubs from "../../../hooks/useAllClubs";
-import useCurrentUser from "../../../hooks/useCurrentUser";
+import useAllClubs from "../../../Hooks/useAllClubs";
+import useCurrentUser from "../../../Hooks/useCurrentUser";
 
 const PersonCard = ({ person, type }) => {
   return (
@@ -119,7 +119,7 @@ const ClubDetails = () => {
 
   const onSubmit = async (data) => {
     try {
-      console.log(data);
+
       await axios.patch(`${import.meta.env.VITE_API_URL}/clubs-update/${club._id}`, data);
       setIsModalOpen(false);
       allClubsRefetch();

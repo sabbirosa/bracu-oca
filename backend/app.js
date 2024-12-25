@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
-const verifyToken = require("./middlewares/verifyToken");
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 const eventsController = require("./controllers/event.controller"); 
 const clubsController = require("./controllers/club.controller");
@@ -18,6 +19,27 @@ app.use(
 );
 app.use(express.json());
 
+// const verifyToken = (req, res, next) => {
+//   console.log(req.headers.authorization);
+//   if (!req.headers.authorization) {
+//     return res.status(401).send("Access Denied");
+//   }
+//   const token = req.headers.authorization.split(" ")[1];
+//   if (!token) {
+//     return res.status(401).send("Access Denied");
+//   }
+
+//   jwt.verify(token, process.env.JWT_Secret, (err, decoded) => {
+//     if (err) {
+//       return res.status(401).send("Access Denied");
+//     }
+
+//     req.decoded = decoded;
+//     next();
+//   });
+// };
+
+
 app.get("/", (req, res) => {
   res.send("Welcome to BRACU OCA Backend");
 });
@@ -27,37 +49,37 @@ app.get("/health", (req, res) => {
 });
 
 // Event Routes
-app.post("/new-event", verifyToken, eventsController.createEvent);
-app.get("/pending-events/:email", verifyToken, eventsController.getPendingEvents);
-app.get("/all-pending-events", verifyToken, eventsController.getAllPendingEvents);
-app.get("/responded-events/:email", verifyToken, eventsController.getRespondedEvents);
-app.get("/accepted-events", verifyToken, eventsController.getAcceptedEvents);
-app.get("/events/:id", verifyToken, eventsController.getEventById);
-app.put("/events/:id", verifyToken, eventsController.updateEvent);
-app.delete("/event-planner/:eventId", verifyToken, eventsController.deleteEvent);
-app.get("/total-budget", verifyToken, eventsController.getTotalBudget);
-app.get("/all-events", verifyToken, eventsController.getAllEvents); // New endpoint
+app.post("/new-event", eventsController.createEvent);
+app.get("/pending-events/:email", eventsController.getPendingEvents);
+app.get("/all-pending-events", eventsController.getAllPendingEvents);
+app.get("/responded-events/:email", eventsController.getRespondedEvents);
+app.get("/accepted-events", eventsController.getAcceptedEvents);
+app.get("/events/:id", eventsController.getEventById);
+app.put("/events/:id", eventsController.updateEvent);
+app.delete("/event-planner/:eventId", eventsController.deleteEvent);
+app.get("/total-budget", eventsController.getTotalBudget);
+app.get("/all-events", eventsController.getAllEvents); // New endpoint
 
 // Club Routes
 app.get("/club-list", clubsController.getClubList);
 app.get("/all-clubs", clubsController.getAllClubs);
-app.patch("/clubs-update/:id", verifyToken, clubsController.updateClub); // New endpoint
+app.patch("/clubs-update/:id", clubsController.updateClub); // New endpoint
 app.get("/current-user/:email", clubsController.getCurrentUser); // New endpoint
 
 // Room Availability Route
-app.post("/check-room-availability", verifyToken, eventsController.checkRoomAvailability); // New endpoint
+app.post("/check-room-availability", eventsController.checkRoomAvailability); // New endpoint
 
 // Message Routes
-app.get("/messages/:email", verifyToken, messagesController.getMessages);
-app.post("/send-message", verifyToken, messagesController.sendMessage);
+app.get("/messages/:email", messagesController.getMessages);
+app.post("/send-message", messagesController.sendMessage);
 
 // Announcement Routes
-app.get("/announcements", verifyToken, announcementsController.getAnnouncements); // New endpoint
-app.post("/add-announcement", verifyToken, announcementsController.addAnnouncement); // New endpoint
-app.delete("/delete-announcement/:id", verifyToken, announcementsController.deleteAnnouncement); // New endpoint
+app.get("/announcements", announcementsController.getAnnouncements); // New endpoint
+app.post("/add-announcement", announcementsController.addAnnouncement); // New endpoint
+app.delete("/delete-announcement/:id", announcementsController.deleteAnnouncement); // New endpoint
 
 // Dashboard Routes
-app.get("/dashboard-info/:email", verifyToken, dashboardController.getDashboardInfo);
-app.get("/dashboard-events", verifyToken, dashboardController.getUpcomingEvents);
+app.get("/dashboard-info/:email", dashboardController.getDashboardInfo);
+app.get("/dashboard-events", dashboardController.getUpcomingEvents);
 
 module.exports = app;

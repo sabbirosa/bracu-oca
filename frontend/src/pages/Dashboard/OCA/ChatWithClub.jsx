@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { BiSend } from "react-icons/bi";
 import { FaVideo } from "react-icons/fa";
 import { useParams } from "react-router-dom";
+import Loading from "../../../components/Loading";
 
 const ChatWithClub = () => {
   const { email } = useParams();
@@ -28,7 +29,7 @@ const ChatWithClub = () => {
       .then((res) => {
         setMessage([...messages, messageInfo]);
         setText("");
-        console.log(res.data);
+
       });
   };
 
@@ -61,9 +62,7 @@ const ChatWithClub = () => {
   }, [email]);
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center h-screen">
-        <span className="loading loading-spinner text-[#4D44B5]"></span>
-      </div>
+      <Loading />
     );
   }
 

@@ -3,6 +3,7 @@ import FullCalendar from "@fullcalendar/react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { BsCalendarEvent } from "react-icons/bs";
+import Loading from "../../components/Loading";
 
 const Calendar = () => {
   const { data: events = [], isLoading } = useQuery({
@@ -27,11 +28,11 @@ const Calendar = () => {
       <div className="px-2 py-1">
         <div className="font-medium text-xs truncate">{event?.title}</div>
         <div className="flex items-center gap-1 mt-0.5">
-          <span className="text-[10px] font-medium text-gray-600">
+          <span className="text-[10px] font-medium text-blue-600">
             {event?.extendedProps?.club}
           </span>
           {event?.extendedProps?.room && (
-            <span className="text-[10px] bg-blue-100 text-blue-600 px-1 rounded">
+            <span className="text-[10px] bg-blue-200 text-blue-800 px-1 rounded">
               {event?.extendedProps?.room}
             </span>
           )}
@@ -46,11 +47,7 @@ const Calendar = () => {
   };
 
   if (isLoading) {
-    return (
-      <div className="flex justify-center items-center h-screen bg-blue-50">
-        <div className="loading loading-spinner text-blue-600"></div>
-      </div>
-    );
+    return <Loading />;
   }
 
   return (
@@ -60,18 +57,11 @@ const Calendar = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16 items-center">
             <h1 className="text-2xl font-bold text-blue-800">Central Calendar</h1>
-            <div className="flex items-center gap-4">
-              <div className="avatar">
-                <img
-                  className="w-10 h-10 rounded-full"
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTW710hPlb48q-g88rWvxavK9XmOeFOXU1ZMA&s"
-                  alt="User Avatar"
-                />
-              </div>
-            </div>
+            
           </div>
         </div>
       </div>
+
 
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
@@ -94,7 +84,7 @@ const Calendar = () => {
               dayHeaderFormat={{ weekday: "short" }}
               firstDay={0}
               dayCellClassNames={(info) =>
-                info.isToday ? "bg-blue-50 rounded-lg" : ""
+                info.isToday ? "bg-blue-100 rounded-lg" : ""
               }
             />
           </div>
@@ -109,11 +99,11 @@ const Calendar = () => {
               <div className="space-y-3">
                 <div className="flex items-center gap-3">
                   <div className="w-3 h-3 bg-blue-600 rounded-full"></div>
-                  <span className="text-sm text-gray-700">Scheduled Events</span>
+                  <span className="text-sm text-blue-700">Scheduled Events</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <div className="w-3 h-3 bg-orange-500 rounded-full"></div>
-                  <span className="text-sm text-gray-700">Today</span>
+                  <div className="w-3 h-3 bg-blue-800 rounded-full"></div>
+                  <span className="text-sm text-blue-700">Today</span>
                 </div>
               </div>
             </div>
@@ -136,10 +126,10 @@ const Calendar = () => {
                           <h3 className="font-bold text-blue-800">
                             {event?.title}
                           </h3>
-                          <p className="text-sm text-gray-600">
+                          <p className="text-sm text-blue-600">
                             {formatDate(event?.date)}
                           </p>
-                          <p className="text-sm text-gray-500">
+                          <p className="text-sm text-blue-500">
                             {event?.extendedProps?.club}
                           </p>
                         </div>
@@ -147,7 +137,7 @@ const Calendar = () => {
                     </div>
                   ))
                 ) : (
-                  <p className="text-gray-500 text-sm">No upcoming events</p>
+                  <p className="text-blue-500 text-sm">No upcoming events</p>
                 )}
               </div>
             </div>

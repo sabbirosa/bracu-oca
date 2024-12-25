@@ -8,11 +8,11 @@ import { RiLockPasswordLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import Loading from "../components/Loading";
-import AuthContext from "../context/AuthContext";
+import { AuthContext } from "../Context/AuthProvider";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { login, setLoading } = useContext(AuthContext);
+  const { login, setLoading } = useContext( AuthContext );
   const { register, handleSubmit, setValue } = useForm();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedClub, setSelectedClub] = useState(null);

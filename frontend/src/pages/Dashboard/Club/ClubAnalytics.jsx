@@ -1,8 +1,8 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { CiCalendarDate } from "react-icons/ci";
-import AuthContext from "../../../context/AuthContext";
-import useCurrentUser from "../../../hooks/useCurrentUser";
+import { AuthContext } from "../../../Context/AuthProvider";
+import useCurrentUser from "../../../Hooks/useCurrentUser";
 
 const ClubAnalytics = () => {
   const { user } = useContext(AuthContext);
@@ -23,14 +23,14 @@ const ClubAnalytics = () => {
         setEvents(response.data);
       })
       .catch((error) => {
-        console.log(error);
+        console.error(error);
       });
     axios.get(`${import.meta.env.VITE_API_URL}/dashboard-info/${user?.email}`)
      .then((response) => {
         setClubInfo(response.data);
       })
   }, [user?.email, setClubInfo]);
- console.log(clubInfo.totalMembers);
+
   return (
     <div>
       {/* header */}

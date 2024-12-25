@@ -3,7 +3,8 @@ import { useMemo, useState } from 'react';
 import { BiSearch } from "react-icons/bi";
 import { BsEye } from "react-icons/bs";
 import Swal from "sweetalert2";
-import useAllPendingRequests from "../../../hooks/useAllPendingRequests";
+import useAllPendingRequests from "../../../Hooks/useAllPendingRequests";
+import Loading from "../../../components/Loading";
 
 const Approval = () => {
   const [allPendingRequests, allPendingRequestsRefetch, isLoading] = useAllPendingRequests();
@@ -221,9 +222,7 @@ const Approval = () => {
   };
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center h-screen">
-        <span className="loading loading-spinner text-[#4D44B5]"></span>
-      </div>
+      <Loading />
     );
   }
   

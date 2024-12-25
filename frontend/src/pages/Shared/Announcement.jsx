@@ -4,8 +4,8 @@ import { BiTime } from "react-icons/bi";
 import { BsPerson } from "react-icons/bs";
 import { MdAdd, MdClose, MdDelete } from "react-icons/md";
 import Swal from "sweetalert2";
-import AuthContext from "../../context/AuthContext";
-import useCurrentUser from "../../hooks/useCurrentUser";
+import { AuthContext } from "../../Context/AuthProvider";
+import useCurrentUser from "../../Hooks/useCurrentUser";
 
 // Helper function to format dates
 const formatDate = (date) => {
@@ -49,6 +49,7 @@ const Announcements = () => {
 
   // Handle adding a new announcement
   const handleAdd = async (formData) => {
+    console.log(formData);
     try {
       const response = await axios.post(`${import.meta.env.VITE_API_URL}/add-announcement`, {
         ...formData,
@@ -270,5 +271,6 @@ const AddAnnouncementModal = ({ onClose, onSubmit }) => {
     </div>
   );
 };
+
 
 export default Announcements;

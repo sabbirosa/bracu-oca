@@ -1,10 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useContext } from 'react';
-import AuthContext from '../context/AuthContext';
+import { AuthContext } from '../Context/AuthProvider';
 
 const usePendingRequests = () => {
-    const {user} = useContext(AuthContext)
+    const {user} = useContext(AuthContext )
     const {data : pendingRequests = [], refetch: pendingRequestsRefetch} = useQuery({
         queryKey: ['pending-events'],
         queryFn: async () => {

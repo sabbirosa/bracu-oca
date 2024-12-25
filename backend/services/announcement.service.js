@@ -1,16 +1,18 @@
-const Announcement = require("../models/announcement.model");
+const announcementCollection = require("../models/announcement.model");
 
 const getAnnouncements = async () => {
-  return await Announcement.find();
+  return await announcementCollection.find().toArray();
 };
 
 const addAnnouncement = async (data) => {
-  const announcement = new Announcement(data);
-  return await announcement.save();
+  return await announcementCollection.insertOne(data);
 };
 
 const deleteAnnouncement = async (id) => {
-  return await Announcement.findByIdAndDelete(id);
+;
+
+  return await announcementCollection.deleteOne({ "_id": id });
+
 };
 
 module.exports = {

@@ -1,10 +1,8 @@
-import { MdNotificationsActive } from "react-icons/md";
-import useAllClubs from "../../../hooks/useAllClubs";
-import { Link } from "react-router-dom";
+import { useMemo, useState } from "react";
 import { BiSearch } from "react-icons/bi";
 import { HiOutlineMail } from "react-icons/hi";
-import { BsBuilding } from "react-icons/bs";
-import { useState, useMemo } from "react";
+import { Link } from "react-router-dom";
+import useAllClubs from "../../../Hooks/useAllClubs";
 
 const ClubInfo = () => {
   const [allClubs, allClubsRefetch, isLoading] = useAllClubs();

@@ -2,8 +2,8 @@ import axios from "axios";
 import { useContext, useEffect, useRef, useState } from "react";
 import { BiSend } from "react-icons/bi";
 import { FaVideo } from "react-icons/fa";
-import AuthContext from "../../../context/AuthContext";
-import useCurrentUser from "../../../hooks/useCurrentUser";
+import { AuthContext } from "../../../Context/AuthProvider";
+import useCurrentUser from "../../../Hooks/useCurrentUser";
 
 const Chat = () => {
   const { user } = useContext(AuthContext);

@@ -12,14 +12,11 @@ import {
   MdTitle
 } from "react-icons/md";
 import Swal from "sweetalert2";
-import AuthContext from "../../../context/AuthContext";
-import useCurrentUser from "../../../hooks/useCurrentUser";
-import usePendingRequests from "../../../hooks/usePendingRequests";
-import useRespondedRequests from "../../../hooks/useRespondedRequests";
-
-{
-  /* These imports should be added at the top of your file */
-}
+import { AuthContext } from "../../../Context/AuthProvider";
+import useCurrentUser from "../../../Hooks/useCurrentUser";
+import usePendingRequests from "../../../Hooks/usePendingRequests";
+import useRespondedRequests from "../../../Hooks/useRespondedRequests";
+import Loading from "../../../components/Loading";
 
 const Tooltip = ({ message, children }) => {
   return (
@@ -177,9 +174,7 @@ const onSubmit = async (data) => {
 
   if (isClubInfoLoading) {
     return (
-      <div className="flex justify-center items-center h-screen">
-        <span className="loading loading-spinner text-[#4D44B5]"></span>
-      </div>
+      <Loading/>
     );
   }
 
@@ -906,3 +901,4 @@ const EventCard = ({ event, borderColor }) => {
     </div>
   );
 };
+
