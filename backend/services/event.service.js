@@ -62,6 +62,10 @@ const checkRoomAvailability = async (date, roomNumber) => {
   return result === null;
 }
 
+const getAllEvents = async () => {
+  return await eventsCollection.find().toArray();
+}
+
 module.exports = {
   createEvent,
   getPendingEvents,
@@ -73,4 +77,5 @@ module.exports = {
   deleteEvent,
   getTotalBudget,
   checkRoomAvailability,
+  getAllEvents,
 };

@@ -61,9 +61,7 @@ const ChatWithClub = () => {
       });
   }, [email]);
   if (isLoading) {
-    return (
-      <Loading />
-    );
+    return <Loading />
   }
 
   return (

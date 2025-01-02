@@ -87,7 +87,7 @@ const Dashboard = () => {
       </div>
       <div className="p-8 bg-blue-50 w-full font-poppins">
         <div className="w-full min-h-screen bg-blue-50">
-          <Outlet />
+        <Outlet />
         </div>
       </div>
     </div>

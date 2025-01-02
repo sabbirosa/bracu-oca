@@ -11,7 +11,7 @@ const addAnnouncement = async (data) => {
 const deleteAnnouncement = async (id) => {
 ;
 
-  return await announcementCollection.deleteOne({ "_id": id });
+  return await announcementCollection.deleteOne({ _id: id });
 
 };
 

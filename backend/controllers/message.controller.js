@@ -1,7 +1,7 @@
 const messageService = require("../services/message.service");
 
 const getMessages = async (req, res) => {
-  const clubMail = req.params.clubMail;
+  const clubMail = req.params.email;
   try {
     const messages = await messageService.getMessages(clubMail);
     res.json(messages);
