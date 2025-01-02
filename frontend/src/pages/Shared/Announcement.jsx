@@ -49,7 +49,6 @@ const Announcements = () => {
 
   // Handle adding a new announcement
   const handleAdd = async (formData) => {
-    console.log(formData);
     try {
       const response = await axios.post(`${import.meta.env.VITE_API_URL}/add-announcement`, {
         ...formData,

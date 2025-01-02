@@ -1,3 +1,4 @@
+const { ObjectId } = require("mongodb");
 const announcementCollection = require("../models/announcement.model");
 
 const getAnnouncements = async () => {
@@ -9,10 +10,15 @@ const addAnnouncement = async (data) => {
 };
 
 const deleteAnnouncement = async (id) => {
-;
+  try {
+    const objectId = new ObjectId(id);
 
-  return await announcementCollection.deleteOne({ _id: id });
-
+    const result = await announcementCollection.findOneAndDelete({ _id: objectId });
+    return result;
+  } catch (error) {
+    console.error("Error deleting announcement:", error);
+    throw error;
+  }
 };
 
 module.exports = {
