@@ -27,10 +27,22 @@ const getRespondedEvents = async (email) => {
 };
 
 const getAcceptedEvents = async () => {
-  return await eventsCollection
-    .find({ response: "Accepted" })
-    .project({ clubMail: 1, date: 1, _id: 0 })
-    .toArray();
+  try {
+    console.log('Fetching accepted events...');
+    const events = await eventsCollection
+      .find({ 
+        status: "Responded",
+        response: "Accepted" 
+      })
+      .sort({ date: 1 })
+      .toArray();
+    
+    console.log('Found events:', events);
+    return events;
+  } catch (error) {
+    console.error('Error in getAcceptedEvents service:', error);
+    throw error;
+  }
 };
 
 const getEventById = async (id) => {

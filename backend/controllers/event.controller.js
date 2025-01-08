@@ -49,9 +49,21 @@ const getRespondedEvents = async (req, res) => {
 const getAcceptedEvents = async (req, res) => {
   try {
     const events = await eventService.getAcceptedEvents();
+    console.log('Events from service:', events);
+
+    if (!Array.isArray(events)) {
+      console.error('Events is not an array:', events);
+      return res.status(500).json({ error: 'Invalid events data' });
+    }
+
+    if (events.length === 0) {
+      console.log('No accepted events found');
+    }
+
     res.json(events);
   } catch (error) {
-    res.status(500).send("Error fetching accepted events");
+    console.error('Error in getAcceptedEvents:', error);
+    res.status(500).json({ error: error.message });
   }
 };
 

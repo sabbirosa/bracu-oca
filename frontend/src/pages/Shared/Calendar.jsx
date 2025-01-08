@@ -4,36 +4,79 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { BsCalendarEvent } from "react-icons/bs";
 import Loading from "../../components/Loading";
+import { useEffect } from "react";
 
 const Calendar = () => {
-  const { data: events = [], isLoading } = useQuery({
+  const formatEvents = (events) => {
+    if (!Array.isArray(events)) {
+      console.error('Events is not an array:', events);
+      return [];
+    }
+
+    return events.map(event => {
+      console.log('Raw event data:', event);
+
+      if (!event._id || !event.title || !event.date) {
+        console.error('Invalid event data:', event);
+        return null;
+      }
+
+      return {
+        id: event._id,
+        title: event.title,
+        start: new Date(event.date),
+        end: new Date(event.date),
+        allDay: true,
+        extendedProps: {
+          club: event.clubMail?.split('@')[0]?.toUpperCase() || 'No Club',
+          room: event.roomNumber || 'No Venue',
+          description: event.description || 'No description available',
+          budget: event.budget || 'Not specified',
+          status: event.status || 'Unknown',
+          response: event.response || 'Pending',
+          feedback: event.feedback || 'No feedback'
+        }
+      };
+    }).filter(Boolean);
+  };
+
+  const { data: rawEvents = [], isLoading } = useQuery({
     queryKey: ["acceptedEvents"],
-    queryFn: () =>
-      axios
-        .get(`${import.meta.env.VITE_API_URL}/accepted-events`)
-        .then((res) => res.data),
+    queryFn: async () => {
+      try {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/accepted-events`);
+        console.log('API Response:', response.data); // Debug log
+        return response.data;
+      } catch (error) {
+        console.error('Error fetching events:', error);
+        return [];
+      }
+    },
   });
+
+  const events = formatEvents(rawEvents);
 
   const upcomingEvents = events
     .filter((event) => {
       const today = new Date();
       today.setHours(0, 0, 0, 0);
-      return new Date(event?.date) >= today;
+      return event.start >= today;
     })
+    .sort((a, b) => a.start - b.start)
     .slice(0, 3);
 
   const renderEventContent = (eventInfo) => {
     const { event } = eventInfo;
     return (
       <div className="px-2 py-1">
-        <div className="font-medium text-xs truncate">{event?.title}</div>
+        <div className="font-medium text-xs truncate">{event.title}</div>
         <div className="flex items-center gap-1 mt-0.5">
           <span className="text-[10px] font-medium text-blue-600">
-            {event?.extendedProps?.club}
+            {event.extendedProps.club}
           </span>
-          {event?.extendedProps?.room && (
+          {event.extendedProps.room && (
             <span className="text-[10px] bg-blue-200 text-blue-800 px-1 rounded">
-              {event?.extendedProps?.room}
+              {event.extendedProps.room}
             </span>
           )}
         </div>
@@ -45,6 +88,11 @@ const Calendar = () => {
     const options = { month: "short", day: "numeric", year: "numeric" };
     return new Date(dateString).toLocaleDateString("en-US", options);
   };
+
+  useEffect(() => {
+    console.log('Raw events:', rawEvents);
+    console.log('Formatted events:', events);
+  }, [rawEvents]);
 
   if (isLoading) {
     return <Loading />;
@@ -78,7 +126,28 @@ const Calendar = () => {
               }}
               events={events}
               eventContent={renderEventContent}
-              eventClassNames="bg-blue-600 text-white border-0 rounded-md shadow-sm"
+              eventDisplay="block"
+              eventDidMount={(info) => {
+                console.log('Event mounted:', {
+                  id: info.event.id,
+                  title: info.event.title,
+                  start: info.event.start,
+                  end: info.event.end,
+                  extendedProps: info.event.extendedProps
+                });
+              }}
+              eventClassNames={(info) => {
+                const status = info.event.extendedProps.response;
+                return [
+                  status === 'Accepted' ? 'bg-blue-600' : 'bg-gray-500',
+                  'text-white',
+                  'border-0',
+                  'rounded-md',
+                  'shadow-sm',
+                  'cursor-pointer',
+                  'p-1'
+                ];
+              }}
               dayMaxEvents={true}
               height="auto"
               dayHeaderFormat={{ weekday: "short" }}
@@ -86,6 +155,25 @@ const Calendar = () => {
               dayCellClassNames={(info) =>
                 info.isToday ? "bg-blue-100 rounded-lg" : ""
               }
+              eventClick={(info) => {
+                const event = info.event;
+                const props = event.extendedProps;
+                
+                const formattedBudget = props.budget 
+                  ? `BDT ${props.budget.toLocaleString()}`
+                  : 'Not specified';
+
+                alert(`
+                  Event: ${event.title}
+                  Club: ${props.club}
+                  Venue: ${props.room}
+                  Date: ${event.start.toLocaleDateString()}
+                  Budget: ${formattedBudget}
+                  Status: ${props.status}
+                  Response: ${props.response}
+                  ${props.feedback ? `Feedback: ${props.feedback}` : ''}
+                `.trim());
+              }}
             />
           </div>
 
@@ -124,13 +212,16 @@ const Calendar = () => {
                         <BsCalendarEvent className="text-blue-600 text-xl" />
                         <div>
                           <h3 className="font-bold text-blue-800">
-                            {event?.title}
+                            {event.title}
                           </h3>
                           <p className="text-sm text-blue-600">
-                            {formatDate(event?.date)}
+                            {formatDate(event.start)}
                           </p>
                           <p className="text-sm text-blue-500">
-                            {event?.extendedProps?.club}
+                            {event.extendedProps.club}
+                          </p>
+                          <p className="text-sm text-blue-400">
+                            {event.extendedProps.room}
                           </p>
                         </div>
                       </div>
