@@ -5,50 +5,56 @@ import axios from "axios";
 import { BsCalendarEvent } from "react-icons/bs";
 import Loading from "../../components/Loading";
 import { useEffect } from "react";
+import Swal from "sweetalert2"; // Import SweetAlert2
+import "sweetalert2/dist/sweetalert2.min.css"; // Import SweetAlert2 styles
 
 const Calendar = () => {
   const formatEvents = (events) => {
     if (!Array.isArray(events)) {
-      console.error('Events is not an array:', events);
+      console.error("Events is not an array:", events);
       return [];
     }
 
-    return events.map(event => {
-      console.log('Raw event data:', event);
+    return events
+      .map((event) => {
+        console.log("Raw event data:", event);
 
-      if (!event._id || !event.title || !event.date) {
-        console.error('Invalid event data:', event);
-        return null;
-      }
-
-      return {
-        id: event._id,
-        title: event.title,
-        start: new Date(event.date),
-        end: new Date(event.date),
-        allDay: true,
-        extendedProps: {
-          club: event.clubMail?.split('@')[0]?.toUpperCase() || 'No Club',
-          room: event.roomNumber || 'No Venue',
-          description: event.description || 'No description available',
-          budget: event.budget || 'Not specified',
-          status: event.status || 'Unknown',
-          response: event.response || 'Pending',
-          feedback: event.feedback || 'No feedback'
+        if (!event._id || !event.title || !event.date) {
+          console.error("Invalid event data:", event);
+          return null;
         }
-      };
-    }).filter(Boolean);
+
+        return {
+          id: event._id,
+          title: event.title,
+          start: new Date(event.date),
+          end: new Date(event.date),
+          allDay: true,
+          extendedProps: {
+            club: event.clubMail?.split("@")[0]?.toUpperCase() || "No Club",
+            room: event.roomNumber || "No Venue",
+            description: event.description || "No description available",
+            budget: event.budget || "Not specified",
+            status: event.status || "Unknown",
+            response: event.response || "Pending",
+            feedback: event.feedback || "No feedback",
+          },
+        };
+      })
+      .filter(Boolean);
   };
 
   const { data: rawEvents = [], isLoading } = useQuery({
     queryKey: ["acceptedEvents"],
     queryFn: async () => {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_API_URL}/accepted-events`);
-        console.log('API Response:', response.data); // Debug log
+        const response = await axios.get(
+          `${import.meta.env.VITE_API_URL}/accepted-events`
+        );
+        console.log("API Response:", response.data); // Debug log
         return response.data;
       } catch (error) {
-        console.error('Error fetching events:', error);
+        console.error("Error fetching events:", error);
         return [];
       }
     },
@@ -90,8 +96,8 @@ const Calendar = () => {
   };
 
   useEffect(() => {
-    console.log('Raw events:', rawEvents);
-    console.log('Formatted events:', events);
+    console.log("Raw events:", rawEvents);
+    console.log("Formatted events:", events);
   }, [rawEvents]);
 
   if (isLoading) {
@@ -105,11 +111,9 @@ const Calendar = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16 items-center">
             <h1 className="text-2xl font-bold text-blue-800">Central Calendar</h1>
-            
           </div>
         </div>
       </div>
-
 
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
@@ -128,24 +132,24 @@ const Calendar = () => {
               eventContent={renderEventContent}
               eventDisplay="block"
               eventDidMount={(info) => {
-                console.log('Event mounted:', {
+                console.log("Event mounted:", {
                   id: info.event.id,
                   title: info.event.title,
                   start: info.event.start,
                   end: info.event.end,
-                  extendedProps: info.event.extendedProps
+                  extendedProps: info.event.extendedProps,
                 });
               }}
               eventClassNames={(info) => {
                 const status = info.event.extendedProps.response;
                 return [
-                  status === 'Accepted' ? 'bg-blue-600' : 'bg-gray-500',
-                  'text-white',
-                  'border-0',
-                  'rounded-md',
-                  'shadow-sm',
-                  'cursor-pointer',
-                  'p-1'
+                  status === "Accepted" ? "bg-blue-600" : "bg-gray-500",
+                  "text-white",
+                  "border-0",
+                  "rounded-md",
+                  "shadow-sm",
+                  "cursor-pointer",
+                  "p-1",
                 ];
               }}
               dayMaxEvents={true}
@@ -158,21 +162,30 @@ const Calendar = () => {
               eventClick={(info) => {
                 const event = info.event;
                 const props = event.extendedProps;
-                
-                const formattedBudget = props.budget 
-                  ? `BDT ${props.budget.toLocaleString()}`
-                  : 'Not specified';
 
-                alert(`
-                  Event: ${event.title}
-                  Club: ${props.club}
-                  Venue: ${props.room}
-                  Date: ${event.start.toLocaleDateString()}
-                  Budget: ${formattedBudget}
-                  Status: ${props.status}
-                  Response: ${props.response}
-                  ${props.feedback ? `Feedback: ${props.feedback}` : ''}
-                `.trim());
+                const formattedBudget = props.budget
+                  ? `BDT ${props.budget.toLocaleString()}`
+                  : "Not specified";
+
+                Swal.fire({
+                  title: event.title,
+                  html: `
+                    <p><strong>Club:</strong> ${props.club}</p>
+                    <p><strong>Venue:</strong> ${props.room}</p>
+                    <p><strong>Description:</strong> ${props.description}</p>
+                    <p><strong>Budget:</strong> ${formattedBudget}</p>
+                    <p><strong>Status:</strong> ${props.status}</p>
+                    <p><strong>Response:</strong> ${props.response}</p>
+                    ${
+                      props.feedback
+                        ? `<p><strong>Feedback:</strong> ${props.feedback}</p>`
+                        : ""
+                    }
+                  `,
+                  confirmButtonText: "Close",
+                  confirmButtonColor: "blue",
+                  showCloseButton: true,
+                });
               }}
             />
           </div>
