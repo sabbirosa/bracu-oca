@@ -2,11 +2,10 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import FullCalendar from "@fullcalendar/react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { BsCalendarEvent } from "react-icons/bs";
-import Loading from "../../components/Loading";
 import { useEffect } from "react";
+import { BsCalendarEvent } from "react-icons/bs";
 import Swal from "sweetalert2"; // Import SweetAlert2
-import "sweetalert2/dist/sweetalert2.min.css"; // Import SweetAlert2 styles
+import Loading from "../../components/Loading";
 
 const Calendar = () => {
   const formatEvents = (events) => {
