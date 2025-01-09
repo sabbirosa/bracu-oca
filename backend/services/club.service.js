@@ -16,9 +16,14 @@ const updateClub = async (id, data) => {
     {
       $set: {
         name: data.name,
+        fullName: data.fullName,
         email: data.email,
         description: data.description,
         photo_url: data.photo_url,
+        advisors: data.advisors,
+        panel: data.panel,
+        notableAlumnis: data.notableAlumnis,
+        totalMembers: data.totalMembers,
       },
     }
   );
