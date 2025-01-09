@@ -67,7 +67,7 @@ app.patch("/clubs-update/:id", clubsController.updateClub); // New endpoint
 app.get("/current-user/:email", clubsController.getCurrentUser); // New endpoint
 
 // Room Availability Route
-app.post("/check-room-availability", eventsController.checkRoomAvailability); // New endpoint
+app.get("/check-room-availability", eventsController.checkRoomAvailability); // New endpoint
 
 // Message Routes
 app.get("/messages/:email", messagesController.getMessages);
